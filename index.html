@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DevCraft – We Design Experiences That Inspire</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #e8001d;
+    --red-light: #ff2040;
+    --dark: #060810;
+    --dark2: #0b0f1a;
+    --dark3: #111827;
+    --card-bg: rgba(255,255,255,0.04);
+    --card-border: rgba(255,255,255,0.08);
+    --text: #ffffff;
+    --text-muted: #8898aa;
+    --text-dim: #b0bec5;
+    --blue-glow: #1a2fff;
+    --cyan: #00c3ff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(6,8,16,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; letter-spacing: 0.04em; }
+  .nav-logo .logo-icon {
+    width: 34px; height: 34px; border-radius: 50%;
+    background: var(--red);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; font-weight: 900; color: #fff;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: #fff; }
+  .btn-talk {
+    background: var(--red); color: #fff; border: none; padding: 11px 22px;
+    font-family: 'Barlow', sans-serif; font-weight: 700; font-size: 0.85rem;
+    letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    transition: background .2s;
+  }
+  .btn-talk:hover { background: var(--red-light); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh; padding: 140px 48px 80px;
+    position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 70% 40%, rgba(26,47,255,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 85% 20%, rgba(232,0,29,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(26,47,255,0.1) 0%, transparent 60%),
+      var(--dark);
+  }
+  .hero-grid-lines {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.07;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-left { position: relative; z-index: 2; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-muted); margin-bottom: 18px;
+  }
+  .hero-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+  .hero-h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; line-height: 0.95;
+    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    text-transform: uppercase;
+    margin-bottom: 0;
+  }
+  .hero-h1 .white { color: #fff; }
+  .hero-h1 .red {
+    color: var(--red);
+    font-style: italic;
+    display: block;
+    font-size: clamp(4rem, 9vw, 8.5rem);
+    line-height: 0.88;
+  }
+  .hero-sub {
+    margin: 22px 0 32px;
+    color: var(--text-muted); font-size: 0.9rem; line-height: 1.7;
+    max-width: 340px;
+  }
+  .hero-btns { display: flex; gap: 14px; margin-bottom: 48px; }
+  .btn-primary {
+    background: var(--red); color: #fff; border: none;
+    padding: 14px 28px; font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+    transition: background .2s;
+  }
+  .btn-primary:hover { background: var(--red-light); }
+  .btn-outline {
+    background: transparent; color: #fff;
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 14px 28px; font-family: 'Barlow', sans-serif;
+    font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: #fff; }
+  .scroll-hint { display: flex; align-items: center; gap: 10px; color: var(--text-muted); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; }
+  .scroll-hint .scroll-icon { width: 22px; height: 36px; border: 1px solid rgba(255,255,255,0.2); border-radius: 11px; position: relative; }
+  .scroll-hint .scroll-icon::after { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 3px; height: 8px; background: var(--red); border-radius: 2px; animation: scrollDot 1.8s ease infinite; }
+  @keyframes scrollDot { 0%,100%{top:6px;opacity:1} 80%{top:18px;opacity:0} }
+
+  /* Hero Right - Floating Cards */
+  .hero-right { position: relative; z-index: 2; height: 520px; }
+  .hero-card {
+    position: absolute; background: rgba(13,18,35,0.9);
+    border: 1px solid var(--card-border); border-radius: 14px;
+    padding: 18px 22px; backdrop-filter: blur(10px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .card-main { top: 30px; right: 20px; width: 260px; }
+  .card-main .cm-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .card-main .cm-status { font-size: 0.8rem; color: #fff; font-weight: 600; margin-bottom: 14px; }
+  .status-badge { display: inline-block; background: rgba(232,0,29,0.15); border: 1px solid rgba(232,0,29,0.3); color: var(--red); padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 12px; }
+  .progress-ring-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+  .progress-ring { position: relative; width: 60px; height: 60px; }
+  .progress-ring svg { transform: rotate(-90deg); }
+  .progress-ring text { transform: rotate(90deg); fill: #fff; }
+  .ring-label { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; }
+  .perf-num { font-size: 1.8rem; font-weight: 900; color: #fff; }
+  .perf-label { font-size: 0.7rem; color: var(--text-muted); }
+  .tech-row { display: flex; gap: 8px; margin-top: 10px; }
+  .tech-icon { width: 28px; height: 28px; border-radius: 6px; background: rgba(255,255,255,0.06); display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700; color: var(--text-muted); }
+
+  .card-awards { top: 20px; right: 300px; width: 160px; padding: 14px 16px; }
+  .card-awards .aw-title { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px; }
+  .award-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--card-border); }
+  .award-item:last-child { border-bottom: none; }
+  .award-icon { font-size: 1rem; }
+  .award-name { font-size: 0.72rem; font-weight: 600; color: #fff; }
+  .award-sub { font-size: 0.62rem; color: var(--text-muted); }
+
+  .card-clients { bottom: 80px; right: 10px; width: 200px; padding: 14px 18px; }
+  .card-clients .cl-label { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+  .client-avatars { display: flex; margin-bottom: 8px; }
+  .client-avatars .av { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--dark2); background: var(--card-bg); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; margin-left: -8px; }
+  .client-avatars .av:first-child { margin-left: 0; }
+  .client-count { font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+  .client-sub { font-size: 0.72rem; color: var(--text-muted); }
+
+  /* Glow orbs */
+  .orb { position: absolute; border-radius: 50%; filter: blur(80px); z-index: 1; pointer-events: none; }
+  .orb-red { width: 300px; height: 300px; background: rgba(232,0,29,0.15); top: 40%; right: 5%; }
+  .orb-blue { width: 400px; height: 400px; background: rgba(26,47,255,0.1); top: 10%; right: 30%; }
+
+  /* ─── ABOUT ─── */
+  #about {
+    padding: 100px 48px;
+    background: var(--dark2);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  #about::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 60% at 30% 50%, rgba(26,47,255,0.07) 0%, transparent 70%);
+  }
+  .section-tag { display: flex; align-items: center; gap: 8px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .section-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+  .about-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; text-transform: uppercase; line-height: 0.95;
+    font-size: clamp(2.5rem, 4vw, 3.8rem); margin-bottom: 4px;
+  }
+  .about-h2 .red { color: var(--red); font-style: italic; }
+  .about-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; margin: 20px 0 28px; max-width: 380px; }
+  .stats-row { display: flex; gap: 36px; margin-bottom: 32px; }
+  .stat-item .stat-num { font-size: 1.9rem; font-weight: 900; color: #fff; }
+  .stat-item .stat-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+  .btn-secondary {
+    background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.25);
+    padding: 13px 26px; font-family: 'Barlow', sans-serif; font-weight: 700;
+    font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+    cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+    transition: border-color .2s;
+  }
+  .btn-secondary:hover { border-color: #fff; }
+
+  /* About Right */
+  .about-right { position: relative; z-index: 2; }
+  .hexagon-wrap { display: flex; justify-content: center; margin-bottom: 28px; }
+  .hex-obj {
+    width: 180px; height: 180px; position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hex-obj::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: conic-gradient(from 0deg, var(--red) 0%, var(--blue-glow) 40%, var(--red) 100%);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    animation: hexSpin 6s linear infinite;
+    opacity: 0.8;
+  }
+  .hex-obj::after {
+    content: '';
+    position: absolute; inset: 12px;
+    background: var(--dark3);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  .hex-inner { position: relative; z-index: 2; width: 60px; height: 60px; background: var(--red); clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+  @keyframes hexSpin { to { filter: hue-rotate(360deg); } }
+
+  .skills-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 24px; margin-bottom: 20px; }
+  .skills-card h4 { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 16px; }
+  .skill-bar { margin-bottom: 12px; }
+  .skill-bar-top { display: flex; justify-content: space-between; font-size: 0.78rem; font-weight: 600; margin-bottom: 5px; }
+  .skill-track { height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+  .skill-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--red-light)); border-radius: 2px; transition: width 1s ease; }
+
+  .tech-card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 14px; padding: 18px 22px; }
+  .tech-card h4 { font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  .tech-icons-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .tech-pill { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .tech-pill .icon { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,0.06); border: 1px solid var(--card-border); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+  .tech-pill .name { font-size: 0.6rem; color: var(--text-muted); }
+
+  /* ─── PROJECTS ─── */
+  #projects { padding: 100px 48px; background: var(--dark); }
+  .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
+  .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .project-card {
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px;
+    overflow: hidden; transition: transform .3s, border-color .3s;
+    cursor: pointer;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: rgba(232,0,29,0.3); }
+  .project-thumb {
+    height: 220px; position: relative; overflow: hidden;
+    background: var(--dark3);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .project-thumb .thumb-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 1.5rem; text-transform: uppercase;
+    text-align: center; line-height: 1.1; padding: 20px;
+    color: rgba(255,255,255,0.15);
+  }
+  .project-thumb .thumb-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(232,0,29,0.12) 0%, rgba(26,47,255,0.12) 100%); }
+  .project-thumb-text { position: relative; z-index: 2; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 1.4rem; text-transform: uppercase; text-align: center; line-height: 1.15; }
+  .project-link-btn {
+    position: absolute; bottom: 16px; right: 16px; z-index: 3;
+    width: 36px; height: 36px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: background .2s;
+  }
+  .project-link-btn:hover { background: var(--red); }
+  .project-info { padding: 20px; }
+  .project-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 5px; }
+  .project-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tag { background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); padding: 3px 10px; border-radius: 4px; font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    padding: 100px 48px;
+    background: var(--dark2);
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  #contact::before {
+    content: ''; position: absolute; left: -100px; bottom: -100px;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(232,0,29,0.08) 0%, transparent 70%);
+  }
+  .contact-left .contact-h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; text-transform: uppercase; font-size: clamp(2.5rem, 4vw, 3.5rem);
+    line-height: 0.95; margin-bottom: 18px;
+  }
+  .contact-left .contact-h2 .red { color: var(--red); font-style: italic; display: block; }
+  .contact-desc { color: var(--text-muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 32px; max-width: 320px; }
+  .social-links { display: flex; gap: 12px; }
+  .social-btn {
+    width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--card-border);
+    background: var(--card-bg); display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 1rem; transition: border-color .2s, background .2s;
+    color: var(--text-muted); text-decoration: none;
+  }
+  .social-btn:hover { border-color: var(--red); background: rgba(232,0,29,0.1); color: #fff; }
+
+  /* Form */
+  .contact-form { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .form-group { position: relative; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; background: rgba(255,255,255,0.04); border: 1px solid var(--card-border);
+    border-radius: 8px; padding: 14px 44px 14px 16px;
+    color: #fff; font-family: 'Barlow', sans-serif; font-size: 0.85rem;
+    outline: none; transition: border-color .2s;
+    appearance: none;
+  }
+  .form-group input::placeholder, .form-group select::placeholder, .form-group textarea::placeholder { color: var(--text-muted); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: rgba(232,0,29,0.5); }
+  .form-group .field-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 0.9rem; pointer-events: none; }
+  .form-group textarea { height: 110px; resize: vertical; padding: 14px 16px; }
+  .form-group.full { grid-column: 1/-1; }
+  .btn-send {
+    width: 100%; background: var(--red); color: #fff; border: none;
+    padding: 16px; font-family: 'Barlow', sans-serif; font-weight: 700;
+    font-size: 0.9rem; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    border-radius: 8px; margin-top: 14px;
+    transition: background .2s;
+  }
+  .btn-send:hover { background: var(--red-light); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark); border-top: 1px solid var(--card-border);
+    padding: 60px 48px 30px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1.2fr; gap: 40px; margin-bottom: 48px; }
+  .footer-brand .fb-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; margin-bottom: 14px; }
+  .footer-brand .fb-logo .logo-icon { width: 30px; height: 30px; }
+  .footer-brand p { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; max-width: 220px; }
+  .footer-col h5 { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; color: #fff; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 10px; }
+  .footer-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; transition: color .2s; }
+  .footer-col ul li a:hover { color: #fff; }
+  .footer-contact-item { display: flex; align-items: flex-start; gap: 8px; color: var(--text-muted); font-size: 0.8rem; margin-bottom: 10px; }
+  .footer-contact-item .icon { color: var(--red); flex-shrink: 0; margin-top: 2px; }
+  .newsletter-form { display: flex; gap: 8px; }
+  .newsletter-form input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); border-radius: 6px; padding: 11px 14px; color: #fff; font-family: 'Barlow', sans-serif; font-size: 0.82rem; outline: none; }
+  .newsletter-form input::placeholder { color: var(--text-muted); }
+  .newsletter-form button { background: var(--red); color: #fff; border: none; padding: 11px 14px; border-radius: 6px; cursor: pointer; transition: background .2s; }
+  .newsletter-form button:hover { background: var(--red-light); }
+  .footer-bottom { border-top: 1px solid var(--card-border); padding-top: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-bottom p { font-size: 0.78rem; color: var(--text-muted); }
+  .footer-bottom span { color: var(--red); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .card-main { animation: float 5s ease-in-out infinite; }
+  .card-awards { animation: float 5s ease-in-out infinite 1.2s; }
+  .card-clients { animation: float 5s ease-in-out infinite 2.5s; }
+
+  /* select styling */
+  select option { background: var(--dark3); color: #fff; }
+
+  /* arrow chars */
+  .arrow { font-size: 0.85rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    #hero, #about, #contact { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .project-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    #hero { padding: 120px 20px 60px; }
+    #about, #projects, #contact { padding: 70px 20px; }
+    footer { padding: 50px 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════ NAVBAR ════ -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-icon">D</div>
+    <span>DEVCRAFT</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Portfolio</a></li>
+    <li><a href="#contact">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="btn-talk">Let's Talk <span class="arrow">↗</span></button>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="orb orb-blue"></div>
+  <div class="orb orb-red"></div>
+
+  <div class="hero-left">
+    <div class="hero-tag"><span class="dot"></span> Hello, we are DevCraft 👋</div>
+    <h1 class="hero-h1">
+      <span class="white">We Design</span>
+      <span class="red">Experiences</span>
+      <span class="white">That Inspire</span>
+    </h1>
+    <p class="hero-sub">We are a creative digital agency crafting stunning web experiences, brands & digital products that drive real impact.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">View Portfolio <span class="arrow">↗</span></button>
+      <button class="btn-outline">Our Services <span>+</span></button>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-icon"></div>
+      Scroll Down
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Awards Card -->
+    <div class="hero-card card-awards">
+      <div class="aw-title">Awards</div>
+      <div class="award-item">
+        <span class="award-icon">🏆</span>
+        <div>
+          <div class="award-name">Awwwards</div>
+          <div class="award-sub">Honorable Mention</div>
+        </div>
+      </div>
+      <div class="award-item">
+        <span class="award-icon">🥇</span>
+        <div>
+          <div class="award-name">CSS Design</div>
+          <div class="award-sub">Award Winner</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Status Card -->
+    <div class="hero-card card-main">
+      <div class="cm-label">Project Status</div>
+      <div class="cm-status">Website Redesign</div>
+      <div class="status-badge">In Progress</div>
+      <div class="progress-ring-wrap">
+        <div class="progress-ring">
+          <svg width="60" height="60" viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="4"/>
+            <circle cx="30" cy="30" r="24" fill="none" stroke="#e8001d" stroke-width="4"
+              stroke-dasharray="150.8" stroke-dashoffset="37.7" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-label">75%</div>
+        </div>
+        <div>
+          <div style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px">Performance</div>
+          <div class="perf-num">98</div>
+          <div class="perf-label">Excellent ▲ +12%</div>
+        </div>
+      </div>
+      <div style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px">Technologies</div>
+      <div class="tech-row">
+        <div class="tech-icon">N</div>
+        <div class="tech-icon" style="color:#61dafb">⚛</div>
+        <div class="tech-icon" style="color:#6da55f">⬡</div>
+        <div class="tech-icon" style="color:#3178c6">TS</div>
+        <div class="tech-icon" style="color:#06b6d4">~</div>
+      </div>
+    </div>
+
+    <!-- Clients Card -->
+    <div class="hero-card card-clients">
+      <div class="cl-label">Clients</div>
+      <div class="client-avatars">
+        <div class="av" style="background:linear-gradient(135deg,#f97316,#ea580c)">J</div>
+        <div class="av" style="background:linear-gradient(135deg,#3b82f6,#1d4ed8)">A</div>
+        <div class="av" style="background:linear-gradient(135deg,#10b981,#059669)">M</div>
+        <div class="av" style="background:rgba(255,255,255,0.1)">+</div>
+      </div>
+      <div class="client-count">50+</div>
+      <div class="client-sub">Global Clients</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ ABOUT ════ -->
+<section id="about">
+  <div class="about-left" style="position:relative;z-index:2;">
+    <div class="section-tag">About Us</div>
+    <h2 class="about-h2">
+      We Build Digital<br>
+      Experiences That<br>
+      <span class="red">Drive Results</span>
+    </h2>
+    <p class="about-desc">DevCraft is a digital creative studio focused on building innovative, high-performing websites, brands & digital products that help businesses grow.</p>
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Projects Completed</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+    </div>
+    <button class="btn-secondary">More About Us →</button>
+  </div>
+
+  <div class="about-right">
+    <div class="hexagon-wrap">
+      <div class="hex-obj">
+        <div class="hex-inner">⬡</div>
+      </div>
+    </div>
+
+    <div class="skills-card">
+      <h4>Our Skills</h4>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Web Design</span><span>95%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>UI/UX Design</span><span>90%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Frontend Dev</span><span>80%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Backend Dev</span><span>85%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>Branding</span><span>88%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:88%"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-bar-top"><span>SEO Optimization</span><span>92%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="width:92%"></div></div>
+      </div>
+    </div>
+
+    <div class="tech-card">
+      <h4>Technologies We Use</h4>
+      <div class="tech-icons-row">
+        <div class="tech-pill"><div class="icon">N</div><div class="name">Next.js</div></div>
+        <div class="tech-pill"><div class="icon">⚛</div><div class="name">React</div></div>
+        <div class="tech-pill"><div class="icon">⬡</div><div class="name">Node.js</div></div>
+        <div class="tech-pill"><div class="icon">TS</div><div class="name">TypeScript</div></div>
+        <div class="tech-pill"><div class="icon">~</div><div class="name">Tailwind</div></div>
+        <div class="tech-pill"><div class="icon">🍃</div><div class="name">MongoDB</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PROJECTS ════ -->
+<section id="projects">
+  <div class="section-header">
+    <div>
+      <div class="section-tag">Our Work</div>
+      <h2 style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,3.5vw,3rem);text-transform:uppercase;">
+        Featured <span style="color:var(--red);font-style:italic;">Projects</span>
+      </h2>
+    </div>
+    <button class="btn-outline">View All Projects ↗</button>
+  </div>
+
+  <div class="project-grid">
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#0d1226,#1a0a14);">
+        <div class="thumb-overlay"></div>
+        <div class="project-thumb-text">Performance<br>Beyond<br>Expectations</div>
+        <div class="project-link-btn">↗</div>
+      </div>
+      <div class="project-info">
+        <div class="project-name">PerfIQ Dashboard</div>
+        <div class="project-desc">AI-powered performance monitoring dashboard for WordPress</div>
+        <div class="project-tags">
+          <span class="project-tag">Dashboard</span>
+          <span class="project-tag">Analytics</span>
+          <span class="project-tag">SaaS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#0d0d26,#1a0d2e);">
+        <div class="thumb-overlay" style="background:linear-gradient(135deg,rgba(26,47,255,0.15),rgba(232,0,29,0.1))"></div>
+        <div class="project-thumb-text">Live<br>Fitness<br>Games</div>
+        <div class="project-link-btn">↗</div>
+      </div>
+      <div class="project-info">
+        <div class="project-name">FitLife App</div>
+        <div class="project-desc">Fitness & lifestyle mobile app design & development</div>
+        <div class="project-tags">
+          <span class="project-tag">Mobile App</span>
+          <span class="project-tag">UI/UX</span>
+          <span class="project-tag">Health</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-thumb" style="background:linear-gradient(135deg,#0d1a26,#0a0d1e);">
+        <div class="thumb-overlay" style="background:linear-gradient(135deg,rgba(0,195,255,0.1),rgba(26,47,255,0.15))"></div>
+        <div class="project-thumb-text">We<br>Create<br>Brands</div>
+        <div class="project-link-btn">↗</div>
+      </div>
+      <div class="project-info">
+        <div class="project-name">Orbit Agency</div>
+        <div class="project-desc">Brand identity & website design for creative agency</div>
+        <div class="project-tags">
+          <span class="project-tag">Branding</span>
+          <span class="project-tag">Website</span>
+          <span class="project-tag">Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ CONTACT ════ -->
+<section id="contact">
+  <div class="contact-left" style="position:relative;z-index:2;">
+    <div class="section-tag">Let's Work Together</div>
+    <h2 class="contact-h2">
+      Have A Project
+      <span class="red">In Mind?</span>
+    </h2>
+    <p class="contact-desc">We are currently available for new projects. Let's create something amazing together!</p>
+    <div class="social-links">
+      <a class="social-btn" href="#" title="Behance">𝔹</a>
+      <a class="social-btn" href="#" title="Dribbble">🏀</a>
+      <a class="social-btn" href="#" title="LinkedIn">in</a>
+      <a class="social-btn" href="#" title="Twitter">𝕏</a>
+    </div>
+  </div>
+
+  <div class="contact-form">
+    <div class="form-row">
+      <div class="form-group">
+        <input type="text" placeholder="Your Name">
+        <span class="field-icon">👤</span>
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email Address">
+        <span class="field-icon">✉</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <select>
+          <option value="" disabled selected>Your Project</option>
+          <option>Web Design</option>
+          <option>UI/UX Design</option>
+          <option>Web Development</option>
+          <option>Branding</option>
+          <option>SEO</option>
+        </select>
+        <span class="field-icon" style="top:50%;transform:translateY(-50%)">▾</span>
+      </div>
+      <div class="form-group">
+        <select>
+          <option value="" disabled selected>Budget Range</option>
+          <option>$1k – $5k</option>
+          <option>$5k – $10k</option>
+          <option>$10k – $25k</option>
+          <option>$25k+</option>
+        </select>
+        <span class="field-icon" style="top:50%;transform:translateY(-50%)">▾</span>
+      </div>
+    </div>
+    <div class="form-group full">
+      <textarea placeholder="Project Details"></textarea>
+    </div>
+    <button class="btn-send">Send Message →</button>
+  </div>
+</section>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="fb-logo">
+        <div class="logo-icon" style="width:30px;height:30px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.9rem">D</div>
+        <span style="font-weight:700;letter-spacing:.04em">DEVCRAFT</span>
+      </div>
+      <p>Building digital experiences that inspire & perform.</p>
+    </div>
+
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Services</a></li>
+        <li><a href="#projects">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul>
+        <li><a href="#">Web Design</a></li>
+        <li><a href="#">UI/UX Design</a></li>
+        <li><a href="#">Web Development</a></li>
+        <li><a href="#">Branding</a></li>
+        <li><a href="#">SEO Optimization</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <div class="footer-contact-item"><span class="icon">✉</span><span>hello@devcraft.studio</span></div>
+      <div class="footer-contact-item"><span class="icon">📞</span><span>+1 (734) 567-8901</span></div>
+      <div class="footer-contact-item"><span class="icon">📍</span><span>New York, USA</span></div>
+    </div>
+
+    <div class="footer-col">
+      <h5>Stay Updated</h5>
+      <div class="newsletter-form">
+        <input type="email" placeholder="Enter your email">
+        <button>↗</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2024 DevCraft Studio. All rights reserved.</p>
+    <p>Made with <span>❤</span> by DevCraft</p>
+  </div>
+</footer>
+
+</body>
+</html>
